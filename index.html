@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memphis Morning Assistant — A Working Dispatcher Agent</title>
-    <meta name="description" content="A modular agent prompt for cross-dock distribution centers. Built live at the Capstone Logistics Partner Symposium 2026.">
+    <meta name="description" content="A modular agent prompt for cross-dock distribution centers. Created for the Capstone Logistics 2026 Partner Symposium.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,15 +22,8 @@
             --amber-soft: #E5C28F;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
 
         body {
             background: var(--cream);
@@ -44,14 +37,11 @@
             overflow-x: hidden;
         }
 
-        /* Subtle paper texture using gradient */
         body::before {
             content: '';
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background-image:
                 radial-gradient(circle at 25% 30%, rgba(200, 145, 82, 0.025) 0%, transparent 50%),
                 radial-gradient(circle at 75% 70%, rgba(26, 41, 66, 0.02) 0%, transparent 50%);
@@ -67,12 +57,36 @@
             z-index: 1;
         }
 
-        /* Top bar — matches deck */
         .topbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 80px;
+        }
+
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .topbar-logo {
+            height: 32px;
+            width: auto;
+            display: block;
+        }
+
+        .topbar-divider {
+            font-family: 'Instrument Sans', sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--ink-soft);
+            padding-left: 14px;
+            border-left: 1px solid var(--ink-mute);
+        }
+
+        .topbar-right {
             font-family: 'Instrument Sans', sans-serif;
             font-size: 11px;
             letter-spacing: 0.12em;
@@ -80,23 +94,7 @@
             color: var(--ink-soft);
         }
 
-        .topbar-left {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .topbar-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--amber);
-        }
-
-        /* Hero */
-        .hero {
-            margin-bottom: 64px;
-        }
+        .hero { margin-bottom: 64px; }
 
         .eyebrow {
             font-family: 'Instrument Sans', sans-serif;
@@ -136,7 +134,6 @@
             color: var(--ink-soft);
         }
 
-        /* The Big Button */
         .copy-section {
             margin: 64px 0;
             padding: 48px 40px;
@@ -149,10 +146,8 @@
         .copy-section::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 3px;
-            height: 100%;
+            top: 0; left: 0;
+            width: 3px; height: 100%;
             background: var(--amber);
         }
 
@@ -195,8 +190,6 @@
             justify-content: center;
             gap: 12px;
             transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
         }
 
         .copy-button:hover {
@@ -205,13 +198,8 @@
             box-shadow: 0 8px 24px rgba(26, 41, 66, 0.15);
         }
 
-        .copy-button:active {
-            transform: translateY(0);
-        }
-
-        .copy-button.copied {
-            background: var(--amber);
-        }
+        .copy-button:active { transform: translateY(0); }
+        .copy-button.copied { background: var(--amber); }
 
         .copy-button-icon {
             width: 20px;
@@ -228,10 +216,7 @@
             font-family: 'Instrument Serif', Georgia, serif;
         }
 
-        /* AI Tool Links */
-        .ai-tools {
-            margin: 48px 0;
-        }
+        .ai-tools { margin: 48px 0; }
 
         .ai-tools-label {
             font-family: 'Instrument Sans', sans-serif;
@@ -257,9 +242,6 @@
             text-align: center;
             text-decoration: none;
             color: var(--navy);
-            font-family: 'Instrument Sans', sans-serif;
-            font-size: 15px;
-            font-weight: 500;
             transition: all 0.2s;
             display: block;
         }
@@ -285,10 +267,7 @@
             color: var(--ink-soft);
         }
 
-        /* Steps */
-        .steps {
-            margin: 64px 0 48px;
-        }
+        .steps { margin: 64px 0 48px; }
 
         h2 {
             font-family: 'Instrument Serif', Georgia, serif;
@@ -313,9 +292,7 @@
             border-bottom: 1px solid rgba(26, 41, 66, 0.1);
         }
 
-        .step:last-child {
-            border-bottom: none;
-        }
+        .step:last-child { border-bottom: none; }
 
         .step-num {
             font-family: 'Instrument Serif', Georgia, serif;
@@ -345,10 +322,7 @@
             color: var(--ink-soft);
         }
 
-        /* Architecture */
-        .architecture {
-            margin: 80px 0 48px;
-        }
+        .architecture { margin: 80px 0 48px; }
 
         .arch-table {
             border-top: 1px solid rgba(26, 41, 66, 0.15);
@@ -388,7 +362,6 @@
             color: var(--ink-soft);
         }
 
-        /* About / Footer */
         .about {
             margin: 80px 0 48px;
             padding-top: 48px;
@@ -433,7 +406,6 @@
             border-bottom-color: var(--amber);
         }
 
-        /* Footer */
         footer {
             margin-top: 80px;
             padding-top: 32px;
@@ -457,7 +429,6 @@
             color: var(--ink-soft);
         }
 
-        /* Toast notification */
         .toast {
             position: fixed;
             bottom: 32px;
@@ -487,59 +458,20 @@
             font-weight: bold;
         }
 
-        /* Mobile adjustments */
         @media (max-width: 600px) {
-            .container {
-                padding: 32px 24px 60px;
-            }
-
-            .topbar {
-                margin-bottom: 48px;
-                font-size: 9px;
-            }
-
-            .copy-section {
-                padding: 32px 24px;
-                margin: 48px -8px;
-            }
-
-            .copy-button {
-                padding: 20px 24px;
-                font-size: 16px;
-            }
-
-            .ai-tools-grid {
-                grid-template-columns: 1fr;
-                gap: 8px;
-            }
-
-            .step {
-                grid-template-columns: 60px 1fr;
-                gap: 16px;
-            }
-
-            .step-num {
-                font-size: 36px;
-            }
-
-            .step-content h3 {
-                font-size: 20px;
-            }
-
-            .arch-row {
-                grid-template-columns: 100px 1fr;
-                gap: 16px;
-            }
-
-            .arch-label {
-                font-size: 18px;
-            }
-
-            footer {
-                flex-direction: column;
-                gap: 12px;
-                text-align: center;
-            }
+            .container { padding: 32px 24px 60px; }
+            .topbar { margin-bottom: 48px; }
+            .topbar-logo { height: 26px; }
+            .topbar-divider, .topbar-right { font-size: 9px; }
+            .copy-section { padding: 32px 24px; margin: 48px -8px; }
+            .copy-button { padding: 20px 24px; font-size: 16px; }
+            .ai-tools-grid { grid-template-columns: 1fr; gap: 8px; }
+            .step { grid-template-columns: 60px 1fr; gap: 16px; }
+            .step-num { font-size: 36px; }
+            .step-content h3 { font-size: 20px; }
+            .arch-row { grid-template-columns: 100px 1fr; gap: 16px; }
+            .arch-label { font-size: 18px; }
+            footer { flex-direction: column; gap: 12px; text-align: center; }
         }
     </style>
 </head>
@@ -548,14 +480,14 @@
 
         <div class="topbar">
             <div class="topbar-left">
-                <span class="topbar-dot"></span>
-                <span>Katadhin · Applied AI</span>
+                <img src="assets/katadhin-logo.png" alt="Katadhin" class="topbar-logo">
+                <span class="topbar-divider">Applied AI</span>
             </div>
-            <div>The Field Manual</div>
+            <div class="topbar-right">The Field Manual</div>
         </div>
 
         <section class="hero">
-            <div class="eyebrow">Capstone Logistics Symposium · April 28, 2026</div>
+            <div class="eyebrow">Created for the Capstone Logistics 2026 Partner Symposium</div>
             <h1>Memphis Morning <em>Assistant.</em></h1>
             <p class="lede">A working dispatcher agent for cross-dock distribution centers. <em>Built block by block in front of a hundred logistics executives.</em></p>
         </section>
@@ -815,21 +747,16 @@ Built by John Andrews · Katadhin Consulting · katadhinconsulting.com
             const toast = document.getElementById('toast');
 
             navigator.clipboard.writeText(PROMPT).then(function() {
-                // Update button
                 button.classList.add('copied');
                 buttonText.textContent = 'Copied. Now paste it into Claude.';
-
-                // Show toast
                 toast.classList.add('visible');
 
-                // Reset after delay
                 setTimeout(function() {
                     button.classList.remove('copied');
                     buttonText.textContent = 'Copy the entire prompt';
                     toast.classList.remove('visible');
                 }, 3000);
             }).catch(function(err) {
-                // Fallback for older browsers
                 const textarea = document.createElement('textarea');
                 textarea.value = PROMPT;
                 textarea.style.position = 'fixed';
