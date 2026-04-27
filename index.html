@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memphis Morning Assistant — A Working Dispatcher Agent</title>
-    <meta name="description" content="A modular agent prompt for cross-dock distribution centers. Created for the Capstone Logistics 2026 Partner Symposium.">
+    <title>The Logistics Operations Assistant — A Working AI Co-Pilot for Operations</title>
+    <meta name="description" content="A modular agent prompt for warehousing, transportation, and 3PL. Created for the Capstone Logistics 2026 Partner Symposium.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -108,7 +108,7 @@
         h1 {
             font-family: 'Instrument Serif', Georgia, serif;
             font-weight: 400;
-            font-size: clamp(48px, 9vw, 88px);
+            font-size: clamp(44px, 8vw, 80px);
             line-height: 1.0;
             letter-spacing: -0.02em;
             color: var(--navy);
@@ -488,8 +488,8 @@
 
         <section class="hero">
             <div class="eyebrow">Created for the Capstone Logistics 2026 Partner Symposium</div>
-            <h1>Memphis Morning <em>Assistant.</em></h1>
-            <p class="lede">A working dispatcher agent for cross-dock distribution centers. <em>Built block by block in front of a hundred logistics executives.</em></p>
+            <h1>The Logistics Operations <em>Assistant.</em></h1>
+            <p class="lede">A working AI co-pilot for warehousing, transportation, and 3PL. <em>Built block by block in front of a hundred logistics executives.</em></p>
         </section>
 
         <section class="copy-section">
@@ -501,7 +501,7 @@
                 </svg>
                 <span id="copyButtonText">Copy the entire prompt</span>
             </button>
-            <p class="copy-meta">Five blocks. One paste. Works in any major AI tool.</p>
+            <p class="copy-meta">Four blocks. One paste. Sample data included — replace with yours.</p>
         </section>
 
         <section class="ai-tools">
@@ -528,7 +528,7 @@
                 <div class="step-num">01</div>
                 <div class="step-content">
                     <h3>Tap the button above.</h3>
-                    <p>The entire master prompt — role, context, task, constraints, and a sample scenario — is now on your clipboard.</p>
+                    <p>The entire master prompt — role, context, task, and constraints — is now on your clipboard.</p>
                 </div>
             </div>
             <div class="step">
@@ -556,7 +556,7 @@
                 <div class="step-num">05</div>
                 <div class="step-content">
                     <h3>Make it yours.</h3>
-                    <p>The role, task, and constraints work for any cross-dock. Edit only the operation context — your lanes, customers, crew, carriers. <em>Twenty minutes of editing. Working assistant by 11 a.m.</em></p>
+                    <p>The role, task, and constraints work for any logistics operation. Edit only the context block — your lanes, customers, crew, carriers. <em>Twenty minutes of editing. Working assistant by 11 a.m.</em></p>
                 </div>
             </div>
         </section>
@@ -566,11 +566,11 @@
             <div class="arch-table">
                 <div class="arch-row">
                     <div class="arch-label">Role</div>
-                    <div class="arch-desc">A senior dispatcher with twenty years of floor experience. <em>Specificity beats credentials.</em></div>
+                    <div class="arch-desc">A senior logistics operations leader with twenty years across warehousing, transportation, and 3PL. <em>Specificity beats credentials.</em></div>
                 </div>
                 <div class="arch-row">
                     <div class="arch-label">Context</div>
-                    <div class="arch-desc">Lanes. Customers. SLA windows. Union rules. Carrier mix. <em>The brief you'd give a new shift lead on day one.</em></div>
+                    <div class="arch-desc">Lanes. Customers. SLA windows. Union rules. Carrier mix. <em>Sample data included — replace with yours.</em></div>
                 </div>
                 <div class="arch-row">
                     <div class="arch-label">Task</div>
@@ -611,15 +611,15 @@
     </div>
 
     <script>
-        const PROMPT = `# THE MEMPHIS MORNING ASSISTANT
-# A working dispatcher agent for cross-dock distribution centers.
+        const PROMPT = `# THE LOGISTICS OPERATIONS ASSISTANT
+# A working operations agent for warehousing, transportation, and 3PL.
 # Built by John Andrews — Katadhin Consulting
 
 # ============================================================
 # BLOCK 1 — ROLE
 # ============================================================
 
-You are a senior dispatcher at a cross-dock distribution center. You have twenty years of floor experience. You've seen every kind of inbound delay, every type of outbound SLA pressure, every union labor rule, every carrier excuse.
+You are a senior logistics operations leader with twenty years of experience across warehousing, transportation, and third-party logistics. You've worked dock floors, dispatched fleets, managed customer accounts, and rebuilt processes when the old ones stopped working.
 
 You are calm under pressure. You think in tradeoffs, not panaceas. You assume the person asking you a question is exhausted, has already tried the obvious, and needs three real options ranked by cost, time, and crew impact.
 
@@ -630,7 +630,18 @@ When you don't have enough information to answer well, you say so and ask one sp
 When you give recommendations, you commit to them. You rank them. You name the tradeoffs. You don't hedge with "it depends" unless the dependency is real and specific, in which case you name the dependency.
 
 # ============================================================
-# BLOCK 2 — CONTEXT (EDIT THIS BLOCK FOR YOUR DC)
+# BLOCK 2 — CONTEXT
+# ============================================================
+#
+# THIS IS SAMPLE DATA — REPLACE WITH YOURS.
+#
+# The example below describes a Memphis cross-dock distribution
+# center. Use it to see how the agent works, then edit this block
+# to match your operation. Your lanes, your customers, your crew,
+# your carrier mix.
+#
+# Twenty minutes of editing. Working assistant by 11 a.m. Monday.
+#
 # ============================================================
 
 ## Facility
