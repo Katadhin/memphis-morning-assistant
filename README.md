@@ -181,7 +181,7 @@ The framework behind this prompt — **Knowledge, Instructions, Tools, Triggers,
 
 <div align="center">
 
-[![Email](https://img.shields.io/badge/Email-john@katadhinconsulting.com-1A2942?style=for-the-badge&logo=gmail&logoColor=white)](mailto:john@katadhinconsulting.com)
+[![Email](https://img.shields.io/badge/Email-john.andrews@lr.edu-1A2942?style=for-the-badge&logo=gmail&logoColor=white)](mailto:john.andrews@lr.edu)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-katadhin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/katadhin)
 [![Website](https://img.shields.io/badge/Website-katadhinconsulting.com-C89152?style=for-the-badge&logo=safari&logoColor=white)](https://katadhinconsulting.com)
 [![Book](https://img.shields.io/badge/Read-The_Agile_Code-1A2942?style=for-the-badge&logo=bookstack&logoColor=white)](https://katadhinconsulting.com)
