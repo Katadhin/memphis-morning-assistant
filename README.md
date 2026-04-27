@@ -11,9 +11,9 @@
 <br>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
-[![Built at Capstone 2026](https://img.shields.io/badge/Built%20at-Capstone%202026-1A2942?style=for-the-badge)](https://katadhin.com)
-[![The Agile Code](https://img.shields.io/badge/Read%20the%20book-The%20Agile%20Code-C89152?style=for-the-badge)](https://katadhin.com)
-[![Made by Katadhin](https://img.shields.io/badge/Made%20by-Katadhin-1A2942?style=for-the-badge)](https://katadhin.com)
+[![Built at Capstone 2026](https://img.shields.io/badge/Built%20at-Capstone%202026-1A2942?style=for-the-badge)](https://katadhinconsulting.com)
+[![The Agile Code](https://img.shields.io/badge/Read%20the%20book-The%20Agile%20Code-C89152?style=for-the-badge)](https://katadhinconsulting.com)
+[![Made by Katadhin](https://img.shields.io/badge/Made%20by-Katadhin-1A2942?style=for-the-badge)](https://katadhinconsulting.com)
 
 <br>
 
@@ -181,10 +181,10 @@ The framework behind this prompt — **Knowledge, Instructions, Tools, Triggers,
 
 <div align="center">
 
-[![Email](https://img.shields.io/badge/Email-john@katadhin.com-1A2942?style=for-the-badge&logo=gmail&logoColor=white)](mailto:john@katadhin.com)
+[![Email](https://img.shields.io/badge/Email-john@katadhinconsulting.com-1A2942?style=for-the-badge&logo=gmail&logoColor=white)](mailto:john@katadhinconsulting.com)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-katadhin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/katadhin)
-[![Website](https://img.shields.io/badge/Website-katadhin.com-C89152?style=for-the-badge&logo=safari&logoColor=white)](https://katadhin.com)
-[![Book](https://img.shields.io/badge/Read-The_Agile_Code-1A2942?style=for-the-badge&logo=bookstack&logoColor=white)](https://katadhin.com)
+[![Website](https://img.shields.io/badge/Website-katadhinconsulting.com-C89152?style=for-the-badge&logo=safari&logoColor=white)](https://katadhinconsulting.com)
+[![Book](https://img.shields.io/badge/Read-The_Agile_Code-1A2942?style=for-the-badge&logo=bookstack&logoColor=white)](https://katadhinconsulting.com)
 
 </div>
 
