@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memphis Morning Assistant — A Working Dispatcher Agent</title>
+    <meta name="description" content="A modular agent prompt for cross-dock distribution centers. Built live at the Capstone Logistics Partner Symposium 2026.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --cream: #F5F2EC;
+            --cream-deep: #EDE8DE;
+            --ink: #1A1A1A;
+            --ink-soft: #6B7280;
+            --ink-mute: #9CA3AF;
+            --navy: #1A2942;
+            --amber: #C89152;
+            --amber-soft: #E5C28F;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--cream);
+            color: var(--ink);
+            font-family: 'Instrument Sans', -apple-system, sans-serif;
+            font-size: 18px;
+            line-height: 1.6;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Subtle paper texture using gradient */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(circle at 25% 30%, rgba(200, 145, 82, 0.025) 0%, transparent 50%),
+                radial-gradient(circle at 75% 70%, rgba(26, 41, 66, 0.02) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 60px 32px 80px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Top bar — matches deck */
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 80px;
+            font-family: 'Instrument Sans', sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--ink-soft);
+        }
+
+        .topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .topbar-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--amber);
+        }
+
+        /* Hero */
+        .hero {
+            margin-bottom: 64px;
+        }
+
+        .eyebrow {
+            font-family: 'Instrument Sans', sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--amber);
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-weight: 400;
+            font-size: clamp(48px, 9vw, 88px);
+            line-height: 1.0;
+            letter-spacing: -0.02em;
+            color: var(--navy);
+            margin-bottom: 32px;
+        }
+
+        h1 em {
+            font-style: italic;
+            color: var(--amber);
+        }
+
+        .lede {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: clamp(22px, 3vw, 28px);
+            line-height: 1.45;
+            color: var(--ink);
+            margin-bottom: 40px;
+            max-width: 540px;
+        }
+
+        .lede em {
+            font-style: italic;
+            color: var(--ink-soft);
+        }
+
+        /* The Big Button */
+        .copy-section {
+            margin: 64px 0;
+            padding: 48px 40px;
+            background: var(--cream-deep);
+            border: 1px solid rgba(26, 41, 66, 0.08);
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .copy-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 3px;
+            height: 100%;
+            background: var(--amber);
+        }
+
+        .copy-eyebrow {
+            font-family: 'Instrument Sans', sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--ink-soft);
+            margin-bottom: 16px;
+        }
+
+        .copy-title {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: clamp(28px, 4vw, 36px);
+            line-height: 1.2;
+            color: var(--navy);
+            margin-bottom: 32px;
+        }
+
+        .copy-title em {
+            font-style: italic;
+            color: var(--amber);
+        }
+
+        .copy-button {
+            width: 100%;
+            background: var(--navy);
+            color: var(--cream);
+            border: none;
+            padding: 24px 32px;
+            font-family: 'Instrument Sans', sans-serif;
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            cursor: pointer;
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .copy-button:hover {
+            background: #243553;
+            transform: translateY(-1px);
+            box-shadow: 0 8px 24px rgba(26, 41, 66, 0.15);
+        }
+
+        .copy-button:active {
+            transform: translateY(0);
+        }
+
+        .copy-button.copied {
+            background: var(--amber);
+        }
+
+        .copy-button-icon {
+            width: 20px;
+            height: 20px;
+            stroke-width: 2;
+        }
+
+        .copy-meta {
+            margin-top: 16px;
+            font-size: 13px;
+            color: var(--ink-soft);
+            text-align: center;
+            font-style: italic;
+            font-family: 'Instrument Serif', Georgia, serif;
+        }
+
+        /* AI Tool Links */
+        .ai-tools {
+            margin: 48px 0;
+        }
+
+        .ai-tools-label {
+            font-family: 'Instrument Sans', sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--ink-soft);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .ai-tools-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .ai-tool {
+            padding: 20px 16px;
+            background: var(--cream);
+            border: 1px solid rgba(26, 41, 66, 0.12);
+            border-radius: 2px;
+            text-align: center;
+            text-decoration: none;
+            color: var(--navy);
+            font-family: 'Instrument Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.2s;
+            display: block;
+        }
+
+        .ai-tool:hover {
+            border-color: var(--amber);
+            background: var(--cream-deep);
+            transform: translateY(-2px);
+        }
+
+        .ai-tool-name {
+            display: block;
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: 18px;
+            color: var(--navy);
+            margin-bottom: 2px;
+        }
+
+        .ai-tool-arrow {
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--ink-soft);
+        }
+
+        /* Steps */
+        .steps {
+            margin: 64px 0 48px;
+        }
+
+        h2 {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-weight: 400;
+            font-size: clamp(32px, 5vw, 44px);
+            line-height: 1.15;
+            letter-spacing: -0.01em;
+            color: var(--navy);
+            margin-bottom: 32px;
+        }
+
+        h2 em {
+            font-style: italic;
+            color: var(--amber);
+        }
+
+        .step {
+            display: grid;
+            grid-template-columns: 80px 1fr;
+            gap: 24px;
+            padding: 24px 0;
+            border-bottom: 1px solid rgba(26, 41, 66, 0.1);
+        }
+
+        .step:last-child {
+            border-bottom: none;
+        }
+
+        .step-num {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-style: italic;
+            font-size: 48px;
+            color: var(--amber);
+            line-height: 1;
+        }
+
+        .step-content h3 {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-weight: 400;
+            font-size: 24px;
+            line-height: 1.2;
+            color: var(--navy);
+            margin-bottom: 8px;
+        }
+
+        .step-content p {
+            font-size: 16px;
+            line-height: 1.5;
+            color: var(--ink);
+        }
+
+        .step-content p em {
+            font-style: italic;
+            color: var(--ink-soft);
+        }
+
+        /* Architecture */
+        .architecture {
+            margin: 80px 0 48px;
+        }
+
+        .arch-table {
+            border-top: 1px solid rgba(26, 41, 66, 0.15);
+        }
+
+        .arch-row {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 32px;
+            padding: 24px 0;
+            border-bottom: 1px solid rgba(26, 41, 66, 0.08);
+        }
+
+        .arch-row:last-child {
+            border-bottom: 1px solid rgba(26, 41, 66, 0.15);
+        }
+
+        .arch-label {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-style: italic;
+            font-size: 22px;
+            color: var(--navy);
+        }
+
+        .arch-row.judgment .arch-label {
+            color: var(--amber);
+        }
+
+        .arch-desc {
+            font-size: 16px;
+            line-height: 1.5;
+            color: var(--ink);
+        }
+
+        .arch-desc em {
+            font-style: italic;
+            color: var(--ink-soft);
+        }
+
+        /* About / Footer */
+        .about {
+            margin: 80px 0 48px;
+            padding-top: 48px;
+            border-top: 1px solid rgba(26, 41, 66, 0.15);
+        }
+
+        .about p {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-size: 20px;
+            line-height: 1.5;
+            color: var(--ink);
+            margin-bottom: 16px;
+            max-width: 540px;
+        }
+
+        .about p em {
+            font-style: italic;
+            color: var(--amber);
+        }
+
+        .links {
+            margin-top: 32px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .link {
+            font-family: 'Instrument Sans', sans-serif;
+            font-size: 13px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--ink-soft);
+            text-decoration: none;
+            border-bottom: 1px solid var(--ink-mute);
+            padding-bottom: 2px;
+            transition: all 0.2s;
+        }
+
+        .link:hover {
+            color: var(--amber);
+            border-bottom-color: var(--amber);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 80px;
+            padding-top: 32px;
+            border-top: 1px solid rgba(26, 41, 66, 0.1);
+            font-family: 'Instrument Sans', sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--ink-mute);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        footer em {
+            font-family: 'Instrument Serif', Georgia, serif;
+            font-style: italic;
+            font-size: 13px;
+            text-transform: none;
+            letter-spacing: normal;
+            color: var(--ink-soft);
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%) translateY(120px);
+            background: var(--navy);
+            color: var(--cream);
+            padding: 16px 32px;
+            border-radius: 2px;
+            font-family: 'Instrument Sans', sans-serif;
+            font-size: 14px;
+            letter-spacing: 0.04em;
+            box-shadow: 0 12px 32px rgba(26, 41, 66, 0.25);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .toast.visible {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .toast-icon {
+            color: var(--amber);
+            font-weight: bold;
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 600px) {
+            .container {
+                padding: 32px 24px 60px;
+            }
+
+            .topbar {
+                margin-bottom: 48px;
+                font-size: 9px;
+            }
+
+            .copy-section {
+                padding: 32px 24px;
+                margin: 48px -8px;
+            }
+
+            .copy-button {
+                padding: 20px 24px;
+                font-size: 16px;
+            }
+
+            .ai-tools-grid {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .step {
+                grid-template-columns: 60px 1fr;
+                gap: 16px;
+            }
+
+            .step-num {
+                font-size: 36px;
+            }
+
+            .step-content h3 {
+                font-size: 20px;
+            }
+
+            .arch-row {
+                grid-template-columns: 100px 1fr;
+                gap: 16px;
+            }
+
+            .arch-label {
+                font-size: 18px;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <div class="topbar">
+            <div class="topbar-left">
+                <span class="topbar-dot"></span>
+                <span>Katadhin · Applied AI</span>
+            </div>
+            <div>The Field Manual</div>
+        </div>
+
+        <section class="hero">
+            <div class="eyebrow">Capstone Logistics Symposium · April 28, 2026</div>
+            <h1>Memphis Morning <em>Assistant.</em></h1>
+            <p class="lede">A working dispatcher agent for cross-dock distribution centers. <em>Built block by block in front of a hundred logistics executives.</em></p>
+        </section>
+
+        <section class="copy-section">
+            <div class="copy-eyebrow">One Click · Yours In Fifteen Seconds</div>
+            <h2 class="copy-title">Copy the prompt. Paste it into Claude. <em>Watch what happens.</em></h2>
+            <button class="copy-button" id="copyButton" onclick="copyPrompt()">
+                <svg class="copy-button-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                </svg>
+                <span id="copyButtonText">Copy the entire prompt</span>
+            </button>
+            <p class="copy-meta">Five blocks. One paste. Works in any major AI tool.</p>
+        </section>
+
+        <section class="ai-tools">
+            <div class="ai-tools-label">— Open Your AI Of Choice —</div>
+            <div class="ai-tools-grid">
+                <a href="https://claude.ai/new" target="_blank" rel="noopener" class="ai-tool">
+                    <span class="ai-tool-name">Claude</span>
+                    <span class="ai-tool-arrow">Open →</span>
+                </a>
+                <a href="https://chatgpt.com/" target="_blank" rel="noopener" class="ai-tool">
+                    <span class="ai-tool-name">ChatGPT</span>
+                    <span class="ai-tool-arrow">Open →</span>
+                </a>
+                <a href="https://gemini.google.com/" target="_blank" rel="noopener" class="ai-tool">
+                    <span class="ai-tool-name">Gemini</span>
+                    <span class="ai-tool-arrow">Open →</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="steps">
+            <h2>How to use it <em>Monday morning.</em></h2>
+            <div class="step">
+                <div class="step-num">01</div>
+                <div class="step-content">
+                    <h3>Tap the button above.</h3>
+                    <p>The entire master prompt — role, context, task, constraints, and a sample scenario — is now on your clipboard.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">02</div>
+                <div class="step-content">
+                    <h3>Open a fresh chat.</h3>
+                    <p>Claude, ChatGPT, Gemini — your choice. <em>The prompt is portable.</em></p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">03</div>
+                <div class="step-content">
+                    <h3>Paste. Hit send.</h3>
+                    <p>The agent reads itself in. Acknowledges who it is, where it works, what you want, and what's off limits.</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">04</div>
+                <div class="step-content">
+                    <h3>Describe a real disruption.</h3>
+                    <p>Late inbound. Missing driver. Customer SLA at risk. <em>Anything you walked into Monday morning.</em></p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">05</div>
+                <div class="step-content">
+                    <h3>Make it yours.</h3>
+                    <p>The role, task, and constraints work for any cross-dock. Edit only the operation context — your lanes, customers, crew, carriers. <em>Twenty minutes of editing. Working assistant by 11 a.m.</em></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="architecture">
+            <h2>What's in <em>the prompt.</em></h2>
+            <div class="arch-table">
+                <div class="arch-row">
+                    <div class="arch-label">Role</div>
+                    <div class="arch-desc">A senior dispatcher with twenty years of floor experience. <em>Specificity beats credentials.</em></div>
+                </div>
+                <div class="arch-row">
+                    <div class="arch-label">Context</div>
+                    <div class="arch-desc">Lanes. Customers. SLA windows. Union rules. Carrier mix. <em>The brief you'd give a new shift lead on day one.</em></div>
+                </div>
+                <div class="arch-row">
+                    <div class="arch-label">Task</div>
+                    <div class="arch-desc">Three options, ranked by SLA, cost, crew. Tradeoffs called out for each. <em>The call to make. Who makes it. What could go wrong.</em></div>
+                </div>
+                <div class="arch-row">
+                    <div class="arch-label">Constraints</div>
+                    <div class="arch-desc">Ten rules that turn the agent from a confident bullshitter into a thoughtful collaborator. <em>SLA flagging, no OT assumptions, one clarifying question.</em></div>
+                </div>
+                <div class="arch-row judgment">
+                    <div class="arch-label">Judgment</div>
+                    <div class="arch-desc">The fifth block. <em>Yours.</em> The agent narrows the choice. <em>You make it.</em></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="about">
+            <p>Built by <strong>John Andrews</strong> — Alex Lee Professor of Business at Lenoir-Rhyne University, founding partner of Katadhin Consulting, and author of <em>The Agile Code</em>.</p>
+            <p>The framework behind this prompt — <em>Knowledge, Instructions, Tools, Triggers, and Human Judgment</em> — is the operating model from the book. This is one applied example. There are many more.</p>
+            <div class="links">
+                <a href="https://github.com/Katadhin/memphis-morning-assistant" class="link">View the source on GitHub</a>
+                <a href="mailto:john.andrews@lr.edu" class="link">john.andrews@lr.edu</a>
+                <a href="https://katadhinconsulting.com" class="link">katadhinconsulting.com</a>
+                <a href="https://linkedin.com/in/katadhin" class="link">LinkedIn</a>
+            </div>
+        </section>
+
+        <footer>
+            <span>MIT License · Use it. Modify it. Ship it.</span>
+            <em>Built for operators, by an operator.</em>
+        </footer>
+
+    </div>
+
+    <div class="toast" id="toast">
+        <span class="toast-icon">✓</span>
+        <span>Prompt copied to clipboard</span>
+    </div>
+
+    <script>
+        const PROMPT = `# THE MEMPHIS MORNING ASSISTANT
+# A working dispatcher agent for cross-dock distribution centers.
+# Built by John Andrews — Katadhin Consulting
+
+# ============================================================
+# BLOCK 1 — ROLE
+# ============================================================
+
+You are a senior dispatcher at a cross-dock distribution center. You have twenty years of floor experience. You've seen every kind of inbound delay, every type of outbound SLA pressure, every union labor rule, every carrier excuse.
+
+You are calm under pressure. You think in tradeoffs, not panaceas. You assume the person asking you a question is exhausted, has already tried the obvious, and needs three real options ranked by cost, time, and crew impact.
+
+You speak like an operator, not a consultant. Short sentences. Direct language. No buzzwords. No frameworks unless they actually help.
+
+When you don't have enough information to answer well, you say so and ask one specific clarifying question — never more than one at a time.
+
+When you give recommendations, you commit to them. You rank them. You name the tradeoffs. You don't hedge with "it depends" unless the dependency is real and specific, in which case you name the dependency.
+
+# ============================================================
+# BLOCK 2 — CONTEXT (EDIT THIS BLOCK FOR YOUR DC)
+# ============================================================
+
+## Facility
+
+Cross-dock distribution center in the Memphis metro area.
+Four dock doors, all operational.
+Single-level floor plan, no mezzanine.
+Yard capacity: twelve trailers staged.
+
+## Inbound Lanes
+
+Primary inbound corridors (in order of volume):
+- Atlanta (largest, daily)
+- Dallas (daily)
+- Birmingham (daily)
+- Nashville (3x weekly)
+
+Inbound mix: roughly 70% retail consumer goods, 30% industrial.
+
+## Outbound Customers
+
+Two retailer accounts:
+- Retailer A — strict 9:30 a.m. SLA window. Largest account by revenue. SLA breach triggers chargeback and escalation to their VP of supply chain.
+- Retailer B — 9:30 a.m. SLA window with 30-minute grace period. Less punitive, but repeated misses jeopardize the contract.
+
+Both accounts ship six days a week (Monday–Saturday).
+
+## Crew
+
+Standard shift: eight people on the dock.
+Two forklift operators per shift (this is the constraint — losing one slows everything).
+One shift lead.
+Five general dock workers.
+
+Union labor. Hard rule: no mandatory overtime past 9:00 a.m. without supervisor approval. The supervisor is reachable but not always responsive.
+
+## Carrier Mix
+
+- 60% asset-based contract carriers (predictable, reliable, slightly more expensive)
+- 40% spot market (flexible, faster to mobilize, less predictable on quality)
+
+## What's Not Here
+
+We do not have:
+- Real-time GPS visibility on inbound carriers
+- Automated driver communication
+- A formal escalation tree to retailer customers (it's relationship-based)
+- Predictive disruption alerting
+
+# ============================================================
+# BLOCK 3 — TASK
+# ============================================================
+
+When I describe a disruption to you, give me three options ranked in this order of priority:
+
+1. SLA preservation — does this option keep the customer's commitment intact?
+2. Total cost — labor cost + carrier cost + customer relationship cost (estimate ranges, not exact numbers)
+3. Crew impact — physical strain, overtime exposure, morale
+
+For each of the three options, give me:
+
+- What it costs (dollar range or relative cost — "low / moderate / high" is fine if specifics aren't possible)
+- Who needs to call whom — name the role, not the person. Examples: dispatcher → carrier dispatch, account manager → customer ops contact, supervisor → union steward.
+- What could go wrong — the single most likely failure mode for this option, named honestly.
+
+After the three options, give me one recommended pick with one sentence explaining why that pick over the others.
+
+Format your response as plain prose with clear headers. No tables. No JSON. No code blocks. This is a conversation, not a system output.
+
+# ============================================================
+# BLOCK 4 — CONSTRAINTS
+# ============================================================
+
+## Hard rules — these are non-negotiable
+
+1. Never propose an option that violates an SLA without flagging it explicitly. If an option risks SLA breach, the option must begin with the word ALERT in its first line, followed by a one-sentence explanation of the SLA risk.
+
+2. Never assume mandatory overtime is available. Union rules apply. If an option requires overtime, it must include the phrase "requires supervisor approval for OT" in the cost line.
+
+3. Always identify the customer call that needs to happen — even if the recommended option preserves the SLA. Disruptions cause customer calls regardless of outcome. Name who on the team should make the call.
+
+4. Always identify any safety implications. If an option creates physical risk for the crew (rushed loading, fatigue, equipment overuse), name it.
+
+## Behavioral rules
+
+5. If you don't have enough information to answer well, ask one clarifying question first — before proposing options. Don't guess. Don't make up plausible-sounding details. One question, then wait.
+
+6. Don't hedge with "it depends" unless the dependency is real and specific. If you must hedge, name the dependency.
+
+7. Don't propose four or more options. Three is the right number. If you find yourself wanting a fourth, the fourth is a variant of one of the three — fold it in.
+
+8. Don't reference frameworks, methodologies, or buzzwords. No "lean," no "six sigma," no "agile," no "synergy." Speak like an operator on the floor.
+
+## Escalation rules
+
+9. If the disruption is beyond operational scope — for example, regulatory issue, safety incident, customer contract dispute — say so explicitly and recommend escalation to the appropriate human. Name the role.
+
+10. If you've been asked the same question twice and the situation hasn't materially changed, say so. Don't repeat the same options with slightly different wording.
+
+# ============================================================
+# READY TO TEST
+# ============================================================
+
+You're loaded. Acknowledge briefly that the rails are on, then wait for me to describe the disruption.
+
+When I describe it, give me three ranked options with tradeoffs, the calls to make, and any safety flags — exactly as specified above.
+
+Built by John Andrews · Katadhin Consulting · katadhinconsulting.com
+`;
+
+        function copyPrompt() {
+            const button = document.getElementById('copyButton');
+            const buttonText = document.getElementById('copyButtonText');
+            const toast = document.getElementById('toast');
+
+            navigator.clipboard.writeText(PROMPT).then(function() {
+                // Update button
+                button.classList.add('copied');
+                buttonText.textContent = 'Copied. Now paste it into Claude.';
+
+                // Show toast
+                toast.classList.add('visible');
+
+                // Reset after delay
+                setTimeout(function() {
+                    button.classList.remove('copied');
+                    buttonText.textContent = 'Copy the entire prompt';
+                    toast.classList.remove('visible');
+                }, 3000);
+            }).catch(function(err) {
+                // Fallback for older browsers
+                const textarea = document.createElement('textarea');
+                textarea.value = PROMPT;
+                textarea.style.position = 'fixed';
+                textarea.style.opacity = 0;
+                document.body.appendChild(textarea);
+                textarea.select();
+                try {
+                    document.execCommand('copy');
+                    button.classList.add('copied');
+                    buttonText.textContent = 'Copied. Now paste it into Claude.';
+                    toast.classList.add('visible');
+                    setTimeout(function() {
+                        button.classList.remove('copied');
+                        buttonText.textContent = 'Copy the entire prompt';
+                        toast.classList.remove('visible');
+                    }, 3000);
+                } catch (e) {
+                    buttonText.textContent = 'Copy failed — please copy manually';
+                }
+                document.body.removeChild(textarea);
+            });
+        }
+    </script>
+</body>
+</html>
